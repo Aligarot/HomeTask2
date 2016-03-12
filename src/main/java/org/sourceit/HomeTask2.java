@@ -1,15 +1,40 @@
 package org.sourceit;
 
-public class HomeTask2 {
+import java.util.Map;
+import java.util.Random;
 
+public class HomeTask2 {
+    public static void main(String[] args) {
+
+    }
     /**
      * Конвертирует десятичное число в бинарную форму
      *
-     * @param number может быть только позитивным
+     * @param numb может быть только позитивным
      * @return бинарная форма числа
      */
-    public static long decimalToBinary(int number) {
-        return -1;
+    public static long decimalToBinary(int numb) {
+        int b=1;
+        long result=0;
+        int d=0;
+        int y=0;
+        for(int i=1;i<=numb;i*=2) {
+            d++;
+            if ((i <= numb) && (i * 2 > numb)) {
+                result += 1 * Math.pow(10, --d);
+                y = i;
+                numb -= i;
+            }
+        }
+        while(y!=0){
+            y/=2;
+            d--;
+            if((y<=numb)&&(y*2>numb)){
+                result+=1*Math.pow(10,d);
+                numb-=y;
+            }
+        }
+        return result;
     }
 
     /**
@@ -19,7 +44,7 @@ public class HomeTask2 {
      * @return октальная форма числа
      */
     public static long decimalToOctal(int number) {
-        return -1;
+        return 1;
     }
 
     /**
@@ -39,7 +64,16 @@ public class HomeTask2 {
      * @return десятичное число
      */
     public static int binaryToDecimal(long binary) {
-        return -1;
+        int result=0;
+        for(int i=0;binary>0;i++){
+            int f=(int)binary%10;
+            if(f==1){
+                result+=Math.pow(2,i);
+            }
+            binary/=10;
+        }
+        return result;
+
     }
 
     /**
@@ -49,7 +83,22 @@ public class HomeTask2 {
      * @return десятичное число
      */
     public static int octalToDecimal(long octal) {
-        return -1;
+        int t=0;
+        int result=0;
+        int s=0;
+        while (octal>0){
+            s++;
+            t+=octal%1000;
+            int g=0;
+            for(int i = 0;i<3;i++) {
+                if (t % 10 == 1) {
+                    g += Math.pow(2, i);
+                }
+            }
+            result+= g*Math.pow(10,s-1);
+            octal/=1000;
+        }
+        return result;
     }
 
     /**
@@ -70,7 +119,14 @@ public class HomeTask2 {
      * @return двумерный массив
      */
     public static int[][] generateTwoDimensionArray(int rows, int columns) {
-        return null;
+        int a[][] = new int[rows][columns];
+        Random r=new Random();
+        for(int i=0;i<a.length;i++){
+            for (int j=0;j<a[i].length;j++){
+                a[i][j]=r.nextInt();
+            }
+        }
+        return a;
     }
 
     /**
@@ -83,7 +139,26 @@ public class HomeTask2 {
      * @return индекс строки
      */
     public static int findMaxProduct(int[][] input) {
-        return 1;
+        int a[]=new int[input.length];
+        for(int i=0;i<input.length;i++){
+            for(int j=0;j <input[i].length;j++){
+                a[i]*=input[i][j];
+                if(a[i]<0){
+                    a[i]*=-1;
+                }
+            }
+
+        }
+        int max=a[0];
+        int h=0;
+        for(int i=1;i<a.length;i++){
+            if(max<a[i]){
+                max=a[i];
+                h=i;
+            }
+        }
+        return h;
+
     }
 
     /**
@@ -93,7 +168,32 @@ public class HomeTask2 {
      * @return массив простых чисел.
      */
     public static int[] getSimple(int n) {
-        return null;
+        int f=0;
+        for (int i=2;i<n;i++){
+            int t=0;
+            for(int j=1;j<i;j++){
+                if(i%j==0){
+                    t++;
+                }
+            }
+            if(t<=1){
+                f++;
+            }
+        }
+        int a[]=new int[f];
+        f=0;
+        for (int i=2;i<n;i++) {
+            int t = 0;
+            for (int j = 1; j < i; j++) {
+                if (i % j == 0) {
+                    t++;
+                }
+            }
+            if (t <= 1) {
+                a[f++] = i;
+            }
+        }
+        return a;
     }
 
     // Рекурсивные методы. Реализовать их нужно с помощью рекурсии.
@@ -116,7 +216,8 @@ public class HomeTask2 {
      * @return
      */
     public static int product(int first, int second) {
-        return -1;
+        int a =first*second;
+        return a;
     }
 
 }
