@@ -2,10 +2,13 @@ package org.sourceit;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 public class HomeTask2 {
     public static void main(String[] args) {
-
+        Scanner s= new Scanner(System.in);
+        int n=s.nextInt();
+        System.out.println(decimalToHex(490));
     }
     /**
      * Конвертирует десятичное число в бинарную форму
@@ -44,7 +47,17 @@ public class HomeTask2 {
      * @return октальная форма числа
      */
     public static long decimalToOctal(int number) {
-        return 1;
+        int result=0;
+        int k=1;
+        while(number>8){
+            result+=((number%8)*k);
+            number/=8;
+            k*=10;
+        }
+        result+=number*k;
+
+        return result;
+
     }
 
     /**
@@ -54,7 +67,18 @@ public class HomeTask2 {
      * @return хексовая форма числа
      */
     public static long decimalToHex(int number) {
-        return -1;
+        int result=0;
+        int k=1;
+        int f=0;
+        while(number>16){
+            f=((number%16));
+            result+=f*k;
+            number/=16;
+            k*=100;
+        }
+        f=((number%16));
+        result += f * k;
+        return result;
     }
 
     /**
@@ -83,20 +107,11 @@ public class HomeTask2 {
      * @return десятичное число
      */
     public static int octalToDecimal(long octal) {
-        int t=0;
         int result=0;
-        int s=0;
-        while (octal>0){
-            s++;
-            t+=octal%1000;
-            int g=0;
-            for(int i = 0;i<3;i++) {
-                if (t % 10 == 1) {
-                    g += Math.pow(2, i);
-                }
-            }
-            result+= g*Math.pow(10,s-1);
-            octal/=1000;
+        for(int i=0;octal>0;i++) {
+            int f = (int) octal % 10;
+            result += Math.pow(8, i)* f;
+            octal /= 10;
         }
         return result;
     }
@@ -108,7 +123,13 @@ public class HomeTask2 {
      * @return десятичное число
      */
     public static int hexToDecimal(long hex) {
-        return -1;
+        int result=0;
+        for(int i=0;hex>0;i++) {
+            int f = (int) hex % 10;
+            result += Math.pow(16, i)* f;
+            hex /= 10;
+        }
+        return result;
     }
 
     /**
@@ -141,13 +162,14 @@ public class HomeTask2 {
     public static int findMaxProduct(int[][] input) {
         int a[]=new int[input.length];
         for(int i=0;i<input.length;i++){
+            a[i]=1;
             for(int j=0;j <input[i].length;j++){
                 a[i]*=input[i][j];
                 if(a[i]<0){
                     a[i]*=-1;
                 }
             }
-
+            System.out.println(a[i]);
         }
         int max=a[0];
         int h=0;
@@ -205,7 +227,15 @@ public class HomeTask2 {
      * @return сумма
      */
     public static long sum(int n) {
-        return 0;
+        long result;
+        if (n==1) {
+            return 1;
+        }else if(n<=0){
+            return 0;
+        }
+        result = sum(n-1)+(n);
+        return result;
+
     }
 
     /**
@@ -216,8 +246,19 @@ public class HomeTask2 {
      * @return
      */
     public static int product(int first, int second) {
-        int a =first*second;
-        return a;
-    }
+        if((first<0)&&(second<0)){
+            first*=-1;
+            second*=-1;
+        }
+        if((second<0)&&(first>0)){
+            second*=-1;
+            first*=-1;
+        }
+        int result=0;
+        if (second <= 0) {
+            return 0;
+        }
+          return first+product(first,second-1);
 
+    }
 }
