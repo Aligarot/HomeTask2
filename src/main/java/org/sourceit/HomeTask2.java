@@ -8,7 +8,7 @@ public class HomeTask2 {
     public static void main(String[] args) {
         Scanner s= new Scanner(System.in);
         int n=s.nextInt();
-        System.out.println(decimalToHex(490));
+        System.out.println(hexToDecimal(1001));
     }
     /**
      * Конвертирует десятичное число в бинарную форму
@@ -17,26 +17,15 @@ public class HomeTask2 {
      * @return бинарная форма числа
      */
     public static long decimalToBinary(int numb) {
-        int b=1;
-        long result=0;
-        int d=0;
-        int y=0;
-        for(int i=1;i<=numb;i*=2) {
-            d++;
-            if ((i <= numb) && (i * 2 > numb)) {
-                result += 1 * Math.pow(10, --d);
-                y = i;
-                numb -= i;
-            }
+        int result=0;
+        int k=1;
+        while(numb>1){
+            result+=((numb%2)*k);
+            numb/=2;
+            k*=10;
         }
-        while(y!=0){
-            y/=2;
-            d--;
-            if((y<=numb)&&(y*2>numb)){
-                result+=1*Math.pow(10,d);
-                numb-=y;
-            }
-        }
+        result+=numb*k;
+
         return result;
     }
 
@@ -69,15 +58,13 @@ public class HomeTask2 {
     public static long decimalToHex(int number) {
         int result=0;
         int k=1;
-        int f=0;
         while(number>16){
-            f=((number%16));
-            result+=f*k;
+            result+=((number%16)*k);
             number/=16;
-            k*=100;
+            k*=10;
         }
-        f=((number%16));
-        result += f * k;
+        result+=number*k;
+
         return result;
     }
 
@@ -126,6 +113,8 @@ public class HomeTask2 {
         int result=0;
         for(int i=0;hex>0;i++) {
             int f = (int) hex % 10;
+            hex /= 10;
+            f+=(int)((hex%10)*10);
             result += Math.pow(16, i)* f;
             hex /= 10;
         }
@@ -140,14 +129,14 @@ public class HomeTask2 {
      * @return двумерный массив
      */
     public static int[][] generateTwoDimensionArray(int rows, int columns) {
-        int a[][] = new int[rows][columns];
-        Random r=new Random();
-        for(int i=0;i<a.length;i++){
-            for (int j=0;j<a[i].length;j++){
-                a[i][j]=r.nextInt();
+        int mas[][] = new int[rows][columns];
+        Random random=new Random();
+        for(int i=0;i<mas.length;i++){
+            for (int j=0;j<mas[i].length;j++){
+                mas[i][j]=random.nextInt();
             }
         }
-        return a;
+        return mas;
     }
 
     /**
@@ -160,26 +149,26 @@ public class HomeTask2 {
      * @return индекс строки
      */
     public static int findMaxProduct(int[][] input) {
-        int a[]=new int[input.length];
+        int rows[]=new int[input.length];
         for(int i=0;i<input.length;i++){
-            a[i]=1;
+            rows[i]=1;
             for(int j=0;j <input[i].length;j++){
-                a[i]*=input[i][j];
-                if(a[i]<0){
-                    a[i]*=-1;
+                rows[i]*=input[i][j];
+                if(rows[i]<0){
+                    rows[i]*=-1;
                 }
             }
-            System.out.println(a[i]);
+            System.out.println(rows[i]);
         }
-        int max=a[0];
-        int h=0;
-        for(int i=1;i<a.length;i++){
-            if(max<a[i]){
-                max=a[i];
-                h=i;
+        int max=rows[0];
+        int number=0;
+        for(int i=1;i<rows.length;i++){
+            if(max<rows[i]){
+                max=rows[i];
+                number=i;
             }
         }
-        return h;
+        return number;
 
     }
 
@@ -190,32 +179,32 @@ public class HomeTask2 {
      * @return массив простых чисел.
      */
     public static int[] getSimple(int n) {
-        int f=0;
-        for (int i=2;i<n;i++){
-            int t=0;
+        int size=0;
+        for (int i=2;i<=n;i++){
+            int counter =0;
             for(int j=1;j<i;j++){
                 if(i%j==0){
-                    t++;
+                    counter++;
                 }
             }
-            if(t<=1){
-                f++;
+            if(counter<=1){
+                size++;
             }
         }
-        int a[]=new int[f];
-        f=0;
+        int mas[]=new int[size];
+        size=0;
         for (int i=2;i<n;i++) {
-            int t = 0;
+            int newCounter = 0;
             for (int j = 1; j < i; j++) {
                 if (i % j == 0) {
-                    t++;
+                    newCounter++;
                 }
             }
-            if (t <= 1) {
-                a[f++] = i;
+            if (newCounter <= 1) {
+                mas[size++] = i;
             }
         }
-        return a;
+        return mas;
     }
 
     // Рекурсивные методы. Реализовать их нужно с помощью рекурсии.
