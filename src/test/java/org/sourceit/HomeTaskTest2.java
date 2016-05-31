@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class HomeTaskTest2 {
-//qwe
+//qwe23232
     @Test
     public void testDecimalToBinary1() {
         Assert.assertEquals(HomeTask2.decimalToBinary(2), 10L);
