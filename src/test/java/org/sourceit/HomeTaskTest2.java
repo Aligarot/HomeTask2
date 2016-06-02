@@ -2,7 +2,6 @@ package org.sourceit;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-//ppll2323pp
 public class HomeTaskTest2 {
 
     @Test
